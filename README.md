@@ -1,3 +1,3 @@
-###Algorithm
+### Algorithm
 
-1. 
+## 1. 
