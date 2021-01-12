@@ -1,4 +1,6 @@
-### Algorithm
+### Algorithm (개인 블로그 개념 포스팅들)
+
+
 
 1. [그리디 알고리즘 기본 코드 설명 바로가기](https://eocoding.tistory.com/26)
 
