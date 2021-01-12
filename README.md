@@ -8,3 +8,5 @@
 
 4. [정렬 알고리즘 개념 설명 바로가기](https://eocoding.tistory.com/43?category=945113)   
   4-1. [정렬 C++ 라이브러리 사용하기 바로가기](https://eocoding.tistory.com/44)
+
+5. [이진탐색 알고리즘 개념 설명 바로가기](https://eocoding.tistory.com/49)
