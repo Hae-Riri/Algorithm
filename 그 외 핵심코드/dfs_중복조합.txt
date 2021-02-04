@@ -1,0 +1,30 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+vector<char>v; //조합을 구해야 할 주어진 원소
+char result[3]; //완성된 조합이 저장되고 갱신되는 공간
+int ans;
+void dfs(int idx, int cnt) {
+	if (cnt == 4) {
+		for (int i = 0; i < 3; i++) {
+			cout << result[i] << " ";
+		}
+		cout << endl;
+		ans++;
+		return;
+	}
+	for (int i = idx; i < v.size(); i++) {
+		//배열을 만들어서 계속 값을 바꿈.
+		result[cnt] = v[i];
+		dfs(i, cnt + 1);
+	}
+}
+int main() {
+	v.push_back('a');
+	v.push_back('b');
+	v.push_back('c');
+	dfs(0, 0);
+	cout << ans;
+	return 0;
+}

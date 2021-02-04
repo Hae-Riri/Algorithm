@@ -1,0 +1,34 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+vector<char>v; //순열을 구해야 할 주어진 원소
+vector<char> result; //완성된 순열이 저장되고 갱신되는 공간
+int m; //순열에 들어가는 원소의 수
+bool visit[4]; // 문자 4개의 방문여부 체크 
+void dfs() {
+	if (result.size() == m) {
+		for (char i : result) {
+			cout << i << " ";
+		}
+		cout << endl;
+	}
+	for (int i = 0; i < v.size(); i++) {
+		if (!visit[i]) {
+			visit[i] = true;
+			result.push_back(v[i]);
+			dfs();
+			result.pop_back();
+			visit[i] = false;
+		}
+	}
+}
+int main() {
+	m = 4;
+	v.push_back('a');
+	v.push_back('b');
+	v.push_back('c');
+	v.push_back('d');
+	dfs();
+	return 0;
+}

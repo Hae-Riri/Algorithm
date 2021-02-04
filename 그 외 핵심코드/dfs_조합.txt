@@ -1,0 +1,34 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+vector<char>v; //조합을 구해야 할 주어진 원소
+vector<char> result; //완성된 조합이 저장되고 갱신되는 공간
+int m; //조합할 원소 수
+bool visit[4]; // 문자 4개의 방문여부 체크 
+void dfs(int idx) {
+	if (result.size() == m) {
+		for (char i : result) {
+			cout << i << " ";
+		}
+		cout << endl;
+	}
+	for (int i = idx; i < v.size(); i++) {
+		if (!visit[i]) {
+			visit[i] = true;
+			result.push_back(v[i]);
+			dfs(i+1);
+			result.pop_back();
+			visit[i] = false;
+		}
+	}
+}
+int main() {
+	m = 2;
+	v.push_back('a');
+	v.push_back('b');
+	v.push_back('c');
+	v.push_back('d');
+	dfs(0);
+	return 0;
+}

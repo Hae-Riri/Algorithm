@@ -1,0 +1,57 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+vector<char>v; //순열을 구해야 할 주어진 원소
+vector<char>result; //순열 결과가 들어갈 벡터
+int m; //순열에 들어가는 원소의 수
+bool visit[6]; // 문자 6개의 방문여부 체크 
+int alpha[4]; //알파벳 중복체크
+int ans; //순열의 개수
+
+int fact(int n) {
+	int res = 1;
+	while (n > 0) {
+		res = res * n;
+		n--;
+	}
+	return res;
+}
+
+void dfs() {
+	if (result.size() == m) {
+		ans++;
+	}
+	for (int i = 0; i < v.size(); i++) {
+		if (!visit[i]) {
+			visit[i] = true;
+			result.push_back(v[i]);
+			dfs();
+			result.pop_back();
+			visit[i] = false;
+		}
+	}
+}
+int main() {
+	m = 6;
+	v.push_back('a');
+	v.push_back('b');
+	v.push_back('b');
+	v.push_back('c');
+	v.push_back('d');
+	v.push_back('d');
+
+	//알파벳 개수 세기
+	for (int i = 0; i < v.size(); i++) {
+		alpha[v[i] - 'a']++;
+	}
+	dfs();
+	cout << "중복 제거 전 순열 개수 : " << ans << endl;
+	for (int i = 0; i < sizeof(alpha)/4; i++) {
+		if (alpha[i] > 1) { //중복되는 원소라면
+			ans = ans / fact(alpha[i]);
+		}
+	}
+	cout << "중복 제거 후 순열 개수 : " << ans << endl;
+	return 0;
+}
