@@ -1,0 +1,38 @@
+#include <string>
+#include <vector>
+#include <set>
+
+using namespace std;
+int arr[200]; //0 - 199사용, parent 정보 담음
+
+void dfs(int idx, vector<vector<int>> & computers,vector<bool> &visit){
+    if(visit[idx]){
+        return;
+    }else{
+        visit[idx] = true;
+        for(int i =0; i<computers[idx].size();i++){
+            if(!visit[i] && idx != i && computers[idx][i] == 1){//이미 visit한 번호 제외, 자기자신 제외
+                arr[i] = arr[idx]; //부모 맞춰주기
+                dfs(i, computers, visit);
+            }
+        }
+    }
+    
+}
+
+int solution(int n, vector<vector<int>> computers) {
+    int answer = 0;
+    vector<bool>visit(n);
+    for(int i = 0 ;i < n ;i++){ //1부터 n까지
+        arr[i] = i; //일단 자기 자신이 부모인 상황으로
+    }
+    for(int i = 0; i<n; i++){
+        dfs(i, computers, visit);
+    }
+    set<int> s;
+    for(int i =0; i< n;i++){
+        s.insert(arr[i]);
+    }
+    answer= s.size();
+    return answer;
+}
