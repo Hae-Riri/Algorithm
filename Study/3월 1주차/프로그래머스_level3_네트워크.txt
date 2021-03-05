@@ -1,0 +1,28 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+
+void dfs(int idx, int n, vector<vector<int>> & computers, vector<bool> &visit){
+    if(visit[idx]){
+        return;
+    }
+    visit[idx] = true;
+    for(int i =0; i<computers[idx].size();i++){
+        if(computers[idx][i] == 1){
+            dfs(i, n, computers, visit);
+        }
+    }
+}
+
+int solution(int n, vector<vector<int>> computers) {
+    int answer = 0;
+    vector<bool>visit(n);
+    for(int i = 0; i<n;i++){
+        if(!visit[i]){
+            dfs(i, n, computers, visit);
+            answer++;
+        }
+    }
+    return answer;
+}
