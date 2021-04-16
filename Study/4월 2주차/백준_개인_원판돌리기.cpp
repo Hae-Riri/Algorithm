@@ -5,7 +5,7 @@
 #include <deque>
 using namespace std;
 
-int n, m,t;
+int n, m, t;
 struct Pan {
 	deque<int>dq;
 };
@@ -35,8 +35,8 @@ void init() {
 	}
 }
 //i번째 원판을 d 방향으로 k칸만큼 회전
-void rotate(int i, int d, int k) { 
-	if (d == 0) { 
+void rotate(int i, int d, int k) {
+	if (d == 0) {
 		for (int j = 0; j < k; j++) {
 			int tmp = pan[i].dq.back();
 			pan[i].dq.pop_back();
@@ -57,7 +57,7 @@ bool remove() {
 
 	//각 좌표별로 사방을 둘러봄
 	for (int i = 1; i <= n; i++) {
-		for (int j = 0; j < m; j++) { 
+		for (int j = 0; j < m; j++) {
 			if (pan[i].dq[j] == 0) continue; // 없어진 수는 패스
 			for (int dir = 0; dir < 4; dir++) {
 				int nx = i + dx[dir]; int ny = j + dy[dir];
@@ -84,8 +84,8 @@ bool remove() {
 	}
 	return removed;
 }
-pair<double, int> get_sum_and_cnt() {
-	double sum = 0; int cnt = 0;
+pair<int, int> get_sum_and_cnt() {
+	int sum = 0; int cnt = 0;
 	for (int i = 1; i <= n; i++) {
 		for (int j = 0; j < m; j++) {
 			if (pan[i].dq[j] != 0) {
@@ -102,7 +102,7 @@ void deleteByAvg(double avg) {
 		for (int j = 0; j < m; j++) {
 			if (pan[i].dq[j] == 0) continue;
 			if (pan[i].dq[j] > avg) pan[i].dq[j]--;
-			else if(pan[i].dq[j] < avg) pan[i].dq[j]++;
+			else if (pan[i].dq[j] < avg) pan[i].dq[j]++;
 		}
 	}
 }
@@ -117,14 +117,14 @@ void rotate_and_remove() {
 			}
 		}
 		//원판 돌린 뒤 sum, count 구하기
-		pair<double, int> sum_cnt = get_sum_and_cnt();
+		pair<int, int> sum_cnt = get_sum_and_cnt();
 		if (sum_cnt.second == 0) continue;
 
 		//인접수 지우기
 		bool removed = remove();
 		if (!removed) { //지워진 게 없다면 평균 처리
 			sum_cnt = get_sum_and_cnt();
-			double avg = sum_cnt.first / (double)sum_cnt.second;
+			double avg = (double)sum_cnt.first / (double)sum_cnt.second;
 			deleteByAvg(avg);
 		}
 	}
@@ -132,5 +132,5 @@ void rotate_and_remove() {
 int main() {
 	init();
 	rotate_and_remove();
-	cout << (int)get_sum_and_cnt().first;
+	cout << get_sum_and_cnt().first;
 }
