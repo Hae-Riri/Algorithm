@@ -1,0 +1,26 @@
+#include <string>
+#include <vector>
+#include <queue>
+#include <algorithm>
+#include <iostream>
+using namespace std;
+
+vector<int> solution(vector<string> operations) {
+    deque<int> dq;
+    for(string str: operations){
+        string str_num = str.substr(2);
+        int num = stoi(str_num);
+        if(str[0] == 'I'){
+            dq.push_back(num);
+            sort(dq.begin(), dq.end());
+        }else if(str[0] == 'D' && num == 1){//최댓값삭제
+            if(dq.size() == 0) continue;
+            dq.pop_back();
+        }else{
+            if(dq.size() == 0) continue;
+            dq.pop_front();
+        }
+    }
+    if(dq.size() == 0) return {0,0};
+    else return {dq.back(), dq.front()};
+}
