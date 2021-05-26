@@ -1,0 +1,19 @@
+#include <string>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+int solution(vector<int> citations) {
+    int answer = 0;
+    sort(citations.begin(), citations.end(), greater<int>());
+    // 6 5 3 1 0
+    // 현위치까지의 개수를 h라고 하면 현위치가 h이상 && 다음위치값이 h이하인지 확인
+    // 즉, 현위치 < h || 다음위치 > h 일 때 continue;
+    for(int i = citations.size()-1; i >= 0; i--){
+        int h = i + 1;
+        if(h > citations[i]) continue;
+        if(i+1 < citations.size() && citations[i+1] > h) continue;
+        return h;
+    }
+    return answer;
+}
