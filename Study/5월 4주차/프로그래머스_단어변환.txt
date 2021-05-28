@@ -1,0 +1,35 @@
+#include <string>
+#include <vector>
+
+using namespace std;
+int answer = 50;
+bool canChange(string a, string b){
+    //한 개만 다른지 체크
+    int cnt = 0;
+    for(int i = 0; i < a.size(); i++){
+        if(a[i] != b[i]) cnt++;
+        if(cnt > 1) return false;
+    }
+    return true;
+}
+void dfs(int cnt, string begin, string target, vector<string> &words, vector<bool>&visit){
+    if(begin == target){ //현재 들어온 word랑 타겟이 같은가?
+        if(cnt < answer) answer = cnt;
+        return;
+    }
+    for(int i = 0; i < words.size(); i++){
+        if(visit[i]) continue;
+        if(canChange(begin, words[i])){
+            visit[i] = true;
+            dfs(cnt+1, words[i], target, words, visit);
+            visit[i] = false;
+        }
+    }
+}
+
+int solution(string begin, string target, vector<string> words) {
+    vector<bool>visit(words.size(), false);
+    dfs(0, begin, target, words, visit);
+    if(answer == 50) answer = 0; //변환할 수 없어서 answer가 갱신이 안된 경우
+    return answer;
+}
